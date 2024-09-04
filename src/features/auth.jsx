@@ -1,49 +1,47 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Ensure you import this for navigation
+import { useCustomerLoginMutation } from "../app/services/authApi";
 
 export default function Example() {
   // State for managing form inputs
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate(); // Hook for navigation
 
   // Function to toggle between login and signup views
   const handlePage = (e) => {
     e.preventDefault(); // Prevent default link behavior
-    setIsLogin(prevIsLogin => !prevIsLogin);
+    setIsLogin((prevIsLogin) => !prevIsLogin);
   };
+  const [customerLogin, { isLoading, isSuccess, isError }] =
+    useCustomerLoginMutation();
 
   // Function to handle form submission
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-  
+
     try {
-      const response = await fetch('http://localhost:3000/customer/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }), // Pass email and password to the API
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        // Assuming the response contains the token
-        const { token } = data;
-        
+      const res = await customerLogin({
+        email: email,
+        password: password,
+      }).unwrap();
+
+      if (res) {
+        //  the response contains the token
+        const { token } = res;
+
         // Store the token in localStorage
-        localStorage.setItem('authToken', token);
-  
+        localStorage.setItem("authToken", token);
+
         // Redirect to the dashboard
-        navigate('/');
+        navigate("/Dashboard");
       } else {
-        setError(data.message || 'Login failed');
+        setError("Login failed");
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError("An error occurred. Please try again.");
     }
   };
 
@@ -57,7 +55,7 @@ export default function Example() {
             className="mx-auto h-20 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            {isLogin ? 'Login into your account' : 'Create an account'}
+            {isLogin ? "Login into your account" : "Create an account"}
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -139,7 +137,7 @@ export default function Example() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                {isLogin ? 'Log in' : 'Sign up'}
+                {isLogin ? "Log in" : "Sign up"}
               </button>
             </div>
           </form>
@@ -149,13 +147,13 @@ export default function Example() {
           )}
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            {isLogin ? 'Not a customer' : 'Already have an account'}{" "}
+            {isLogin ? "Not a customer" : "Already have an account"}{" "}
             <a
               href="#"
               onClick={handlePage}
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              {isLogin ? 'Create an account' : 'Log in'}
+              {isLogin ? "Create an account" : "Log in"}
             </a>
           </p>
         </div>
