@@ -28,10 +28,7 @@ import { useGetCustomerEateriesQuery } from "../app/services/customerApi";
   export default function Dashboard() {
 
 
-    const { data: eateries, isLoading, isError, refetch } = useGetCustomerEateriesQuery(1, {
-        // Optional: Refetch on window focus or other triggers
-        refetchOnWindowFocus: true,
-    });
+    const { data: eateries, isLoading, isError, refetch } = useGetCustomerEateriesQuery(1);
     console.log("mintu",eateries);
 
 
