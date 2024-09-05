@@ -6,6 +6,7 @@ import notificationsPopupSlice from '../../Utils/NotificationsSlice';
 import { useDispatch } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
+import CartItemsSlice from '../../Utils/CartItemsSlice';
 export const history = createBrowserHistory();
 
 export const rtkQueryErrorLogger = (api) => (next) => (action) => {
@@ -34,6 +35,7 @@ export const store = configureStore({
         auth: authReducer,
         errors: errorSlice,
         notificationsPopup: notificationsPopupSlice,
+        cartItems:CartItemsSlice,
         router: connectRouter(history),
         [baseApi.reducerPath]: baseApi.reducer,
     },

@@ -12,6 +12,7 @@ const rawBaseQuery = fetchBaseQuery({
         if (token) {
             headers.set('token', token);
         }
+    
         return headers;
     },
 });
