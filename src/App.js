@@ -6,6 +6,7 @@ import Cart from "./features/cart";
 import OrderSummary from "./features/orderSummary";
 import Auth from "./features/auth";
 import EateryDashboard from "./features/eatery/dashboard";
+import FoodItemDetails from "./features/eatery/foodItemDetails";
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path=':customerId/:eateryId/Cart' element={<Cart />} />
         <Route path='/neworder/:orderId' element={<OrderSummary />} />
         <Route path='/Dashboard/eatery/:eateryId' element={<EateryDashboard />} />
+        <Route path='/edit-item/:id' element ={<FoodItemDetails />} />
        
       </Routes>
     </>

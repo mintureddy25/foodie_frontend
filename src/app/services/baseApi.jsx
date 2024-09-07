@@ -30,6 +30,6 @@ const dynamicBaseQuery = async (args, api, extraOptions) => {
 
 export const baseApi = createApi({
     baseQuery: dynamicBaseQuery,
-    tagTypes: ['Auth','Customer',"Eateries","FoodItem", "Order"],
+    tagTypes: ['Auth','Customer',"Eateries","FoodItem", "Order", "foodCategories"],
     endpoints: () => ({}),
 });

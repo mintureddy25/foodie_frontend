@@ -4,8 +4,20 @@ const foodItemApi = baseApi.injectEndpoints({
 
     endpoints: (builder) => ({
         getFoodItem: builder.query({
-            query: (foodItemId) => `/eateries/${foodItemId}`,
+            query: (foodItemId) => `/eateries/foodItems/${foodItemId}`,
             providesTags: ['eateries'],
+        }),
+        getFoodItems: builder.query({
+            query: ({eateryId}) => `/eateries/${eateryId}/foodItems`,
+            providesTags: ['eateries','foodItems'],
+        }),
+        updateFoodItem: builder.mutation({
+            query: ({ eateryId, foodItemId, data }) => ({
+                url: `/eateries/${eateryId}/foodItems/${foodItemId}`,
+                method: "PUT",
+                body: data,
+            }),
+            invalidatesTags: ["eateries", "foodItem"],
         }),
         
     }),
@@ -13,4 +25,4 @@ const foodItemApi = baseApi.injectEndpoints({
     
 });
 
-export const { useGetFoodItemQuery } = foodItemApi;
+export const { useGetFoodItemQuery, useGetFoodItemsQuery, useUpdateFoodItemMutation} = foodItemApi;
