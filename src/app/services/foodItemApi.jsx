@@ -19,10 +19,17 @@ const foodItemApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["eateries", "foodItem"],
         }),
-        
+        addFoodItem: builder.mutation({
+            query: ({ eateryId, data }) => ({
+                url: `/eateries/${eateryId}/foodItems`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ["eateries", "foodItem"],
+        }),
     }),
     overrideExisting: false,
     
 });
 
-export const { useGetFoodItemQuery, useGetFoodItemsQuery, useUpdateFoodItemMutation} = foodItemApi;
+export const { useGetFoodItemQuery, useGetFoodItemsQuery, useUpdateFoodItemMutation, useAddFoodItemMutation} = foodItemApi;
