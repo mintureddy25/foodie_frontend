@@ -47,7 +47,7 @@ export default function EateryDashboard() {
       case "Orders":
         return <></>;
       case "Add Item":
-        return <AddFoodItem eateryId={eateryId} />;
+        return <AddFoodItem eateryId={eateryId} setCurrentNav={setCurrentNav}/>;
       default:
         return <></>;
     }

@@ -3,7 +3,7 @@ import { useGetFoodCategoriesQuery } from "../../app/services/catergoryApi";
 import { useAddFoodItemMutation } from "../../app/services/foodItemApi";
 import { useNavigate } from "react-router-dom"; 
 
-export default function AddFoodItem({ eateryId }) {
+export default function AddFoodItem({ eateryId , setCurrentNav}) {
   const navigate = useNavigate(); 
   const { data: categories } = useGetFoodCategoriesQuery();
   const [addFoodItem] = useAddFoodItemMutation();
@@ -32,6 +32,7 @@ export default function AddFoodItem({ eateryId }) {
         data: formData,
       }).unwrap();
       // Navigate to the home page
+      setCurrentNav("Home");
       navigate(`/Dashboard/eatery/${eateryId}`);
     } catch (err) {
       console.error("Failed to add food item", err);

@@ -13,6 +13,21 @@ const images = [
   { id: 9, imageUrl: '/pexels-valeriya-1833349.jpg' },
   { id: 10, imageUrl: '/pexels-zvolskiy-1721932.jpg' },
 ];
+const eateryiesNew= [
+  {
+      "id": 1,
+      "name": "Mintu"
+  },
+  {
+      "id": 2,
+      "name": "Bunny"
+  },
+  {
+      "id": 3,
+      "name": "Hello"
+  }
+];
+
 
 const mergeData = (restaurants, images) => {
   return restaurants.map((restaurant, index) => {
@@ -27,14 +42,18 @@ const mergeData = (restaurants, images) => {
 };
 
 export default function Dashboard() {
+  const {customerId} = useParams();
 
 
-    const { data: eateries, isLoading, isError, refetch } = useGetCustomerEateriesQuery(1);
+    const { data: eateries, isLoading, isError } = useGetCustomerEateriesQuery((customerId));
     console.log("mintu",eateries);
+    let eateriesData = [];
 
-    const eateriesData = mergeData(eateries.eateries, images);
+    if(eateries){
+       eateriesData = mergeData(eateries.eateries, images);
+    }
     
-    const {customerId} = useParams();
+    
   
   if (isLoading) {
     return <div>Loading...</div>;
